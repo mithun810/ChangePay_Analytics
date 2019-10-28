@@ -150,5 +150,5 @@ def notifications():
 def index():
     content = None
     # consolidated_data=consolidated_data()
-    data1=consolidated_data()
-    return render_template('layouts/default.html',data=data1)
+    data1,gd=consolidated_data()
+    return render_template('layouts/default.html',data=data1,gd=gd)

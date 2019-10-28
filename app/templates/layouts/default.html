@@ -60,10 +60,12 @@
                                                         {% for i in data[metrics] %}
                                                         {{ i }} : {{data[metrics][i]}}<br>
                                                         {% endfor %}
+                                                        <div id="{{ metrics }}" style="height: 40%"></div>
                                                     {% else %}
                                                         {% for i in data[metrics] %}
                                                         {{ i }} : {{data[metrics][i]["active"]}}<br>
                                                         {% endfor %}
+                                                        <div id="{{ metrics }}" style="height: 40%"></div>
                                                     {% endif %}
                                                 </div>
                                         <hr>
@@ -85,9 +87,42 @@
     </div>
 
 </body>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/highcharts-3d.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
 <script>
 var a={{data |tojson|safe}}
+var b={{gd |tojson|safe}}
 console.log("hiiiiiiiii",a);</script>
+<script type="text/javascript">
+    for (chart in b){
+    Highcharts.chart(chart, {
+    chart: {
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false,
+        type: 'pie'
+    },
+    title: {
+        text: chart
+    },
+    plotOptions: {
+        pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+                enabled: true,
+                // format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+            }
+        }
+    },
+    series: [{ name: chart,
+        colorByPoint: true,
+        data: b[chart]}]
+});
+}
+</script>
 {% include 'includes/scripts.html' %}
 
 </html>

@@ -16,7 +16,7 @@ from app        import app, lm, db, bc
 from app.models import User
 from app.forms  import LoginForm, RegisterForm
 
-from dbutils import consolidated_data, no_of_transactions
+from app.dbutils import consolidated_data, no_of_transactions
 
 # provide login manager with load_user callback
 @lm.user_loader
